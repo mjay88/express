@@ -9,7 +9,7 @@ app.use(methodOverride("_method"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 // uuid();
-const comments = [
+let comments = [
 	{ id: uuid(), username: "Todd", comment: "lol, that is so funny" },
 	{ id: uuid(), username: "Bob", comment: "That isn't funny at all" },
 	{ id: uuid(), username: "Joe", comment: "Your not funny" },
@@ -56,6 +56,11 @@ app.patch("/comments/:id", (req, res) => {
 	res.redirect("/comments");
 });
 
+app.delete("/comments/:id", (req, res) => {
+	const { id } = req.params;
+	comments = comments.filter((c) => c.id !== id);
+	res.redirect("/comments");
+});
 // app.get("/tacos", (req, res) => {
 // 	res.send("GET /tacos response");
 // });
